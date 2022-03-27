@@ -1,0 +1,11 @@
+{
+    "irrigation_timings": [
+        {
+            "channel_1": 15,
+            "channel_2": 21,
+            "channel_3": 39,
+            "channel_4": 38,
+            "schedule": "08:13:18"
+        }
+    ]
+}

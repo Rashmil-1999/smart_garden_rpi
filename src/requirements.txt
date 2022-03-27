@@ -1,0 +1,14 @@
+certifi==2018.4.16
+chardet==3.0.4
+gql
+graphql-core
+idna
+promise
+requests
+Rx
+six
+typing
+urllib3
+chardet
+Adafruit_DHT
+adafruit-circuitpython-veml7700
