@@ -1,0 +1,36 @@
+{
+    "plant_sensor_mapping": [
+        {
+            "p_uuid": "174c6349-66d3-4b2a-928b-6ee11ace53bd",
+            "sensor_mapping": {
+                "alias": "ch_1",
+                "pin_num": 21,
+                "temp_sensor": "28-03109779633b"
+            }
+        },
+        {
+            "p_uuid": "4740dbf2-f694-4f88-afc9-2c3996c02561",
+            "sensor_mapping": {
+                "alias": "ch_3",
+                "pin_num": 16,
+                "temp_sensor": "28-030397940a2f"
+            }
+        },
+        {
+            "p_uuid": "4349e63a-82aa-4d84-b26b-64412aa82ba3",
+            "sensor_mapping": {
+                "alias": "ch_4",
+                "pin_num": 26,
+                "temp_sensor": "28-030e979457c9"
+            }
+        },
+        {
+            "p_uuid": "20e20153-ca27-42e2-a6fb-b94b5f47bd4c",
+            "sensor_mapping": {
+                "alias": "ch_2",
+                "pin_num": 20,
+                "temp_sensor": "28-030c97944774"
+            }
+        }
+    ]
+}

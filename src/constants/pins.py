@@ -16,4 +16,5 @@ BUZZER_PIN: int = 17
 
 # RFID constants
 
-# DS18B20 Soil Temperature Sensor pin.
+# DS18B20 Soil Temperature Sensor pin. 1 wire protocol
+DS182B0_PIN: int = 4
