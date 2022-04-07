@@ -1,7 +1,7 @@
 import pathlib
 
 # Base Paths
-# BASE_DIR: pathlib.Path = pathlib.Path("/home/pi/Desktop/smart_garden_rpi")
+# BASE_DIR: pathlib.Path = pathlib.Path("/home/pi/Desktop/smart_garden_rpi/src")
 BASE_DIR: pathlib.Path = pathlib.Path(
     "/Users/rashmilpanchani/Documents/Projects/smart_garden/src"
 )
@@ -19,4 +19,5 @@ IRRIGATION_LOG: pathlib.Path = LOGS / "irrigation.log"
 
 # Text file paths
 LAST_SENSOR_DATA_UPDATE: pathlib.Path = LOGS / "last_sensor_data_updated.txt"
+LAST_IRRIGATED: pathlib.Path = LOGS / "last_irrigated.txt"
 PENDING_UPDATES: pathlib.Path = LOGS / "pending_update.txt"

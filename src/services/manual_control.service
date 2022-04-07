@@ -1,0 +1,16 @@
+[Unit]
+Description=Manual irrigation control subscription Service
+After=multi-user.target
+
+[Service]
+WorkingDirectory=/home/pi/Desktop/smart_garden_rpi/src/subscriptions
+User=pi
+Type=simple
+ExecStart=python /home/pi/Desktop/smart_garden_rpi/src/subscriptions/manual_control_sub.py
+Restart=always
+RestartSec=90
+StartLimitInterval=400
+StartLimitBurst=3
+
+[Install]
+WantedBy=multi-user.target

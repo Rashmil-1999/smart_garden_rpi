@@ -6,6 +6,10 @@ IRRIGATION_TIME_SUBSCRIPTION: str = """
         channel_2
         channel_3
         channel_4
+        channel_5
+        channel_6
+        channel_7
+        channel_8
         schedule
     }
   }

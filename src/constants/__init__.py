@@ -7,6 +7,10 @@ from .paths import (
     IRRIGATION_CONTROL_JSON,
     IRRIGATION_MODE_JSON,
     PLANT_MAPPING_JSON,
+    IRRIGATION_LOG,
+    LAST_SENSOR_DATA_UPDATE,
+    LAST_IRRIGATED,
+    PENDING_UPDATES,
 )
 from .queries import (
     IRRIGATION_TIME_SUBSCRIPTION,
@@ -17,3 +21,13 @@ from .queries import (
     SENSOR_DATA_MUTATION,
 )
 from .pins import DHT_PIN, STACK, BUZZER_PIN, DS182B0_PIN
+from .control_and_flags import (
+    manual_mode,
+    manual_control_flag,
+    auto_control_flag,
+    network_status,
+    manual_file_last_modified,
+    timing_file_last_modified,
+    sensor_mapping_last_modified,
+    manual_control_file_last_modified,
+)
