@@ -1,4 +1,12 @@
-from .auth import TOKEN, HEADERS, User_UUID, HASURA_WSS_ENDPOINT, HASURA_HTTP_ENDPOINT
+from .auth import (
+    TOKEN,
+    HEADERS,
+    User_UUID,
+    HASURA_WSS_ENDPOINT,
+    HASURA_HTTP_ENDPOINT,
+    RFID_PORT,
+    RFID_READER,
+)
 from .paths import (
     BASE_DIR,
     LOGS,

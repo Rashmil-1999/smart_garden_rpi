@@ -3,3 +3,6 @@ User_UUID: str = "43df0b73-72a7-4a83-aa70-c5d11376f0c8"
 HASURA_WSS_ENDPOINT: str = "wss://smart-garden.hasura.app/v1/graphql"
 HASURA_HTTP_ENDPOINT: str = "https://smart-garden.hasura.app/v1/graphql"
 HEADERS: dict = {"Authorization": f"Bearer {TOKEN}"}
+RFID_READER: str = "speedwayr-14-97-40.local"
+RFID_PORT: int = 14150
+
