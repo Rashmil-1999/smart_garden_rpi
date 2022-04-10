@@ -3,7 +3,9 @@ import telnetlib
 import json
 
 from pprint import pprint
+import sys
 
+sys.path.append("../")
 from constants import RFID_READER, RFID_PORT
 
 
