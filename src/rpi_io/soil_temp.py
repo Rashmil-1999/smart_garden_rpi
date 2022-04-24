@@ -25,6 +25,7 @@ class SoilTempSensor:
 
     def strip_string(self, temp_str):
         i = temp_str.index("t=")
+        print(i)
         if i != -1:
             t = temp_str[i + 2 :]
             temp_c = float(t) / 1000.0
@@ -39,7 +40,9 @@ class SoilTempSensor:
                 valid, temp = f.readlines()
             # check validity of data
             if "YES" in valid:
-                self.log.append((tstamp, sensor) + self.strip_string(temp))
+                print(temp)
+                temp_c = self.strip_string(temp)
+                self.log.append((tstamp, sensor, temp_c))
                 time.sleep(2)
             else:
                 time.sleep(0.2)
@@ -57,7 +60,7 @@ class SoilTempSensor:
 
     def print_temps(self):
         print("-" * 90)
-        for t, n, c, f in self.log:
+        for t, n, c in self.log:
             # print(f'Sensor: {n}  C={c:,.3f}  F={f:,.3f}  DateTime: {t}')
             print(f"Sensor: {n}  C={c:,.3f}  DateTime: {t}")
 

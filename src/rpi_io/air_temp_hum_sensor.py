@@ -1,5 +1,5 @@
 from typing import Tuple
-import Adafruit_DHT22
+import Adafruit_DHT
 import time
 import sys
 
