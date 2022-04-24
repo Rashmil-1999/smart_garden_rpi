@@ -11,6 +11,7 @@ from .paths import (
     BASE_DIR,
     LOGS,
     CONSTANTS,
+    DATA,
     IRRIGATION_TIME_JSON,
     IRRIGATION_CONTROL_JSON,
     IRRIGATION_MODE_JSON,

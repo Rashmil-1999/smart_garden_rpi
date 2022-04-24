@@ -7,6 +7,7 @@ BASE_DIR: pathlib.Path = pathlib.Path("/home/pi/Desktop/smart_garden_rpi/src")
 # )
 LOGS: pathlib.Path = BASE_DIR / "logs"
 CONSTANTS: pathlib.Path = BASE_DIR / "constants"
+DATA: pathlib.Path = BASE_DIR / "data"
 
 # JSON paths
 IRRIGATION_TIME_JSON: pathlib.Path = LOGS / "irrigation_time.json"

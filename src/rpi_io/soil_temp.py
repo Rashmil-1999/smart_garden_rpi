@@ -40,7 +40,6 @@ class SoilTempSensor:
                 valid, temp = f.readlines()
             # check validity of data
             if "YES" in valid:
-                print(temp)
                 temp_c = self.strip_string(temp)
                 self.log.append((tstamp, sensor, temp_c))
                 time.sleep(2)
