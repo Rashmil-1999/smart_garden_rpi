@@ -5,10 +5,10 @@ from datetime import datetime
 
 try:
     # set up serial communication on port ACM0 at 9600 baud rate
-    ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1)
+    ser = serial.Serial("/dev/ttyUSB0", 9600, timeout=1)
     ser.flush()
 except Exception as e:
-    print("Arduino not present at /dev/ttyACM0")
+    print("Arduino not present at /dev/ttyUSB0")
 
 
 # function to read soil_moisture
