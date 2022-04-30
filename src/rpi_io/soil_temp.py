@@ -25,6 +25,7 @@ class SoilTempSensor:
 
     def strip_string(self, temp_str):
         i = temp_str.index("t=")
+        print(i)
         if i != -1:
             t = temp_str[i + 2 :]
             temp_c = float(t) / 1000.0
