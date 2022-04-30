@@ -19,13 +19,14 @@ reader = R420('169.254.1.1')
 
 freqs = reader.freq_table
 powers = reader.power_table
-read_duration = 0.1
+mrt_read_duration = 0.2
+rssi_read_duration = 0.1
 num_rssi_readings = 200
 
 #  Do a couple of ten reads to warmup the reader and confirm correct number of tags being read
 print('warming up the reader')
 for i in range(10):
-    reader.detectTags(powerDBm=powers[i*(9)], freqMHz=freqs[0], mode=1002, session=2, population=5, duration=read_duration, searchmode=2, antennas=(1,))
+    reader.detectTags(powerDBm=powers[i*(9)], freqMHz=freqs[0], mode=1002, session=2, population=5, duration=rssi_read_duration, searchmode=2, antennas=(1,))
 
 tag_ids = {
     # 'e280689000000001a2fa42ca':
@@ -85,7 +86,7 @@ while(moisture_level != 'done' and location != 'done'):
         print('sweep number' + str(i+1))
         tags_found = {}
         for j in range(len(powers)):
-            tags = reader.detectTags(powerDBm=powers[j], freqMHz=freqs[0], mode=1002, session=2, population=5, duration=read_duration, searchmode=2, antennas=(1,))
+            tags = reader.detectTags(powerDBm=powers[j], freqMHz=freqs[0], mode=1002, session=2, population=5, duration=mrt_read_duration, searchmode=2, antennas=(1,))
             for tag in tags:
                 # pprint(tag)
                 if tag['EPC-96'].decode('utf-8') not in tags_found:
@@ -103,7 +104,7 @@ while(moisture_level != 'done' and location != 'done'):
     for i in range(num_rssi_readings):
         if i%10 == 0:
             print(str(i/num_rssi_readings))
-        tags = reader.detectTags(powerDBm=powers[-1], freqMHz=freqs[0], mode=1002, session=2, population=5, duration=read_duration, searchmode=2, antennas=(1,))
+        tags = reader.detectTags(powerDBm=powers[-1], freqMHz=freqs[0], mode=1002, session=2, population=5, duration=rssi_read_duration, searchmode=2, antennas=(1,))
         for tag in tags:
             if tag['EPC-96'].decode('utf-8') not in rssi_vals:
                 rssi_vals[tag['EPC-96'].decode('utf-8')] = {
