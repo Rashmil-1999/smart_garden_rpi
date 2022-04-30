@@ -1,10 +1,10 @@
 import pathlib
 
 # Base Paths
-BASE_DIR: pathlib.Path = pathlib.Path("/home/pi/Desktop/smart_garden_rpi/src")
-# BASE_DIR: pathlib.Path = pathlib.Path(
-#     "/Users/rashmilpanchani/Documents/Projects/smart_garden/src"
-# )
+# BASE_DIR: pathlib.Path = pathlib.Path("/home/pi/Desktop/smart_garden_rpi/src")
+BASE_DIR: pathlib.Path = pathlib.Path(
+    "/Users/rashmilpanchani/Documents/Projects/smart_garden/src"
+)
 LOGS: pathlib.Path = BASE_DIR / "logs"
 CONSTANTS: pathlib.Path = BASE_DIR / "constants"
 DATA: pathlib.Path = BASE_DIR / "data"

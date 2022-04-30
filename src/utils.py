@@ -1,6 +1,10 @@
+from typing import Dict, List, Union
+
 from gql import Client
 from gql.transport.websockets import WebsocketsTransport
 import socket
+import json
+import pathlib
 
 
 def not_connected():
@@ -29,3 +33,13 @@ def get_client(
 
     return client
 
+
+def read_json(filename: Union[pathlib.Path, str]) -> None:
+    with open(filename, "r") as f:
+        data = json.load(f)
+    return data
+
+
+def write_json(filename: Union[pathlib.Path, str], data: dict) -> dict:
+    with open(filename, "w") as f:
+        json.dump(data, f, indent=4)
