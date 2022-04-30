@@ -20,6 +20,7 @@ from .paths import (
     LAST_SENSOR_DATA_UPDATE,
     LAST_IRRIGATED,
     PENDING_UPDATES,
+    RFID_DATA_FOLDER,
 )
 from .queries import (
     IRRIGATION_TIME_SUBSCRIPTION,
