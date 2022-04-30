@@ -102,7 +102,7 @@ while(moisture_level != 'done' and location != 'done'):
     print('starting 100 readings for rssi')
     for i in range(num_rssi_readings):
         if i%10 == 0:
-            print(str(i/num_rssi_readings) + '% ')
+            print(str(i/num_rssi_readings))
         tags = reader.detectTags(powerDBm=powers[-1], freqMHz=freqs[0], mode=1002, session=2, population=5, duration=read_duration, searchmode=2, antennas=(1,))
         for tag in tags:
             if tag['EPC-96'].decode('utf-8') not in rssi_vals:
