@@ -1,3 +1,4 @@
+from numpy import power
 from sllurp.reader import R420
 from pprint import pprint
 import json
@@ -8,18 +9,31 @@ import time
 
 # logging.basicConfig(filename='llrp.log', level=logging.DEBUG)
 
+
+# in two files named reader.py in the sllurp-measurements folder I have commented out prints for the 
+# detectTags function to suppress getting so many lines printed during testing. This is generally a helpful
+# print statement though, and should be uncommented for general use. They are found in lines 139 and 273
+# of both of these files currently
+
 reader = R420('169.254.1.1')
 
 freqs = reader.freq_table
 powers = reader.power_table
+read_duration = 0.1
+num_rssi_readings = 200
+
+#  Do a couple of ten reads to warmup the reader and confirm correct number of tags being read
+print('warming up the reader')
+for i in range(10):
+    reader.detectTags(powerDBm=powers[i*(9)], freqMHz=freqs[0], mode=1002, session=2, population=5, duration=read_duration, searchmode=2, antennas=(1,))
 
 tag_ids = {
-    'e280689000000001a2fa42ca':
-    {
-        'tag': 'tag_1',
-        'EPC-96': 'e280689000000001a2fa42ca',
-        'location': 'air'
-    },
+    # 'e280689000000001a2fa42ca':
+    # {
+    #     'tag': 'tag_1',
+    #     'EPC-96': 'e280689000000001a2fa42ca',
+    #     'location': 'air'
+    # },
     'e280689000000001a2f9e48e':
     {
         'tag': 'tag_2',
@@ -42,7 +56,7 @@ tag_ids = {
     {
         'tag': 'tag_5',
         'EPC-96': 'e280689000000001a2f9fb4d',
-        'location': 'air_2_test'
+        'location': 'air'
     }
 }
 
@@ -52,8 +66,6 @@ print('creating new file structure at data/automated_test/'+timestr)
 newpath = './data/automated_test/'+timestr 
 if not os.path.exists(newpath):
     os.makedirs(newpath)
-
-
 
 moisture_level = input('what is the moisture level? (done to quit): ')
 location = input('what is the location? (done to quit): ')
@@ -65,28 +77,15 @@ while(moisture_level != 'done' and location != 'done'):
 
     min_Tx_power = {}
     rssi_vals = {}
-    # for i in range(len(powers)):
-    #     print('progress ', i)
-    #     tags = reader.detectTags(powerDBm=powers[i], freqMHz=freqs[0], mode=1002, session=2, population=5, duration=0.5, searchmode=2, antennas=(1,))
-    #     for tag in tags:
-    #         if tag['EPC-96'].decode('utf-8') not in min_Tx_power:
-    #             min_Tx_power[tag['EPC-96'].decode('utf-8')] = powers[i]
-    #         if tag['EPC-96'].decode('utf-8') not in rssi_vals:
-    #             rssi_vals[tag['EPC-96'].decode('utf-8')] = {
-    #                 'tag_info': tag_ids.get(tag['EPC-96'].decode('utf-8'), None),
-    #                 'peak_rssi': {},
-    #                 'rssi': {}
-    #             }
-    #         rssi_vals[tag['EPC-96'].decode('utf-8')]['peak_rssi'][powers[i]] = tag['PeakRSSI']
-    #         rssi_vals[tag['EPC-96'].decode('utf-8')]['rssi'][powers[i]] = tag['RSSI']
-
-    # five times sweep the power level up and record minimum response threshold transmission power for each 
-    for i in range(3):
+ 
+    # loop to sweep the power level up five times and record minimum response threshold transmission power for each 
+    
+    print('starting mrt sweeps for moisture level: '+moisture_level+' and location: '+location)
+    for i in range(5):
         print('sweep number' + str(i+1))
         tags_found = {}
-        for j in range(-5, -1, 1):
-            # print('progress ', i)
-            tags = reader.detectTags(powerDBm=powers[j], freqMHz=freqs[0], mode=1002, session=2, population=5, duration=0.5, searchmode=2, antennas=(1,))
+        for j in range(len(powers)):
+            tags = reader.detectTags(powerDBm=powers[j], freqMHz=freqs[0], mode=1002, session=2, population=5, duration=read_duration, searchmode=2, antennas=(1,))
             for tag in tags:
                 # pprint(tag)
                 if tag['EPC-96'].decode('utf-8') not in tags_found:
@@ -96,15 +95,15 @@ while(moisture_level != 'done' and location != 'done'):
                         min_Tx_power[tag['EPC-96'].decode('utf-8')].append(powers[j])
                     else:
                         min_Tx_power[tag['EPC-96'].decode('utf-8')].append(powers[j])
-
-                # rssi_vals[tag['EPC-96'].decode('utf-8')]['peak_rssi'][powers[i]] = tag['PeakRSSI']
-                # rssi_vals[tag['EPC-96'].decode('utf-8')]['rssi'][powers[i]] = tag['RSSI']
-
+            if len(tags) >= len(tag_ids):
+                break
 
     # loop to get 1000 readings of rssi fixed at max power level
-    # TODO: confirm that 0.01 sec duration is sufficient to get readings
-    for i in range(10):
-        tags = reader.detectTags(powerDBm=powers[-1], freqMHz=freqs[0], mode=1002, session=2, population=5, duration=0.5, searchmode=2, antennas=(1,))
+    print('starting 100 readings for rssi')
+    for i in range(num_rssi_readings):
+        if i%10 == 0:
+            print(str(i/num_rssi_readings) + '% ')
+        tags = reader.detectTags(powerDBm=powers[-1], freqMHz=freqs[0], mode=1002, session=2, population=5, duration=read_duration, searchmode=2, antennas=(1,))
         for tag in tags:
             if tag['EPC-96'].decode('utf-8') not in rssi_vals:
                 rssi_vals[tag['EPC-96'].decode('utf-8')] = {

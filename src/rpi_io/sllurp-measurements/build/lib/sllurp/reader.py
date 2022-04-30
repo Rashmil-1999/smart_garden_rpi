@@ -136,7 +136,7 @@ class Reader(LLRPClient):
 		tags = msgdict['TagReportData'] or []
 		tags = self.filterTags(tags) # filter tags
 		self.detectedTags.append(tags) # save tag list
-		print('{} unique tags detected'.format(len(self.uniqueTags(tags))))
+		# print('{} unique tags detected'.format(len(self.uniqueTags(tags))))
 		self.round += 1
 	
 	def startLiveReports(self, reportCallback, powerDBm, freqMHz, mode, tagInterval=10, timeInterval=1., session=2, population=1, antennas=(0,)):
@@ -270,7 +270,7 @@ class ARU2400(Reader):
 		self.stopPolitely()
 		
 		# return results
-		print('{} unique tags detected'.format(len(self.uniqueTags(self.detectedTags))))
+		# print('{} unique tags detected'.format(len(self.uniqueTags(self.detectedTags))))
 		return self.detectedTags
 		
 	def foundTags(self, msgdict):
