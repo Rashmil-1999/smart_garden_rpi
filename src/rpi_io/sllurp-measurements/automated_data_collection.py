@@ -68,10 +68,13 @@ newpath = './data/automated_test/'+timestr
 if not os.path.exists(newpath):
     os.makedirs(newpath)
 
+locations = ['bottom_boxes', 'mid_boxes', 'top_boxes', 'top_shelf', 'mid_shelf', 'bottom_shelf']
+loc_index = 0
+location = locations[loc_index]
+print(location)
 moisture_level = input('what is the moisture level? (done to quit): ')
-location = input('what is the location? (done to quit): ')
 
-while(moisture_level != 'done' and location != 'done'):
+while(moisture_level != 'done'):
 
     path = 'data/automated_test/' + timestr + '/' + moisture_level + 'percent' + location + '.json'
     print(path)
@@ -83,9 +86,12 @@ while(moisture_level != 'done' and location != 'done'):
     
     print('starting mrt sweeps for moisture level: '+moisture_level+' and location: '+location)
     for i in range(5):
-        print('sweep number' + str(i+1))
+        print('sweep number ' + str(i+1))
         tags_found = {}
         for j in range(len(powers)):
+            if j%9 == 0:
+                # print('', end='\r')
+                print('\r'+str(powers[j]) +' dBm', end=' ')
             tags = reader.detectTags(powerDBm=powers[j], freqMHz=freqs[0], mode=1002, session=2, population=5, duration=mrt_read_duration, searchmode=2, antennas=(1,))
             for tag in tags:
                 # pprint(tag)
@@ -100,10 +106,11 @@ while(moisture_level != 'done' and location != 'done'):
                 break
 
     # loop to get 1000 readings of rssi fixed at max power level
-    print('starting 100 readings for rssi')
+    print('starting ' + str(num_rssi_readings) + ' readings for rssi')
     for i in range(num_rssi_readings):
         if i%10 == 0:
-            print(str(i/num_rssi_readings))
+            # print('', end='\r')
+            print('\r' + str(i) + ' / ' +  str(num_rssi_readings), end=' ')
         tags = reader.detectTags(powerDBm=powers[-1], freqMHz=freqs[0], mode=1002, session=2, population=5, duration=rssi_read_duration, searchmode=2, antennas=(1,))
         for tag in tags:
             if tag['EPC-96'].decode('utf-8') not in rssi_vals:
@@ -116,7 +123,6 @@ while(moisture_level != 'done' and location != 'done'):
             rssi_vals[tag['EPC-96'].decode('utf-8')]['rssi'].append(tag['RSSI'])
 
 
-
     # pprint(min_Tx_power)
     # pprint(rssi_vals)
 
@@ -126,6 +132,7 @@ while(moisture_level != 'done' and location != 'done'):
     }
 
     for i, tag in enumerate(tag_ids):
+        print('\n')
         print(tag_ids[tag]['location'])
         if rssi_vals.get(tag, None):
             print('number of rssi readings: ' + str(len(rssi_vals[tag]['peak_rssi'])))
@@ -136,6 +143,8 @@ while(moisture_level != 'done' and location != 'done'):
     with open(path, 'w') as f:
         json.dump(data, f, indent=4)
 
-    moisture_level = input('what is the new moisture level? (done to finish): ')
-    location = input('what is the new location? (done to quit): ')
 
+    loc_index+=1
+    location=locations[loc_index%6]
+    print(location)
+    moisture_level = input('what is the new moisture level? (done to finish): ')
