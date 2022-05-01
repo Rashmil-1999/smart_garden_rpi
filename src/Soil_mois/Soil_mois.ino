@@ -33,8 +33,8 @@ void loop() {
 //  Serial.println(soilMoistureValue2);
 //  Serial.println(soilMoistureValue3);
 //  Serial.println(soilMoistureValue4);
-  //Serial.println(AirValue1);
-  //Serial.println(WaterValue1);
+//  Serial.println(AirValue1);
+//  Serial.println(WaterValue1);
   
   
   soilmoisturepercent1 = map(soilMoistureValue1, AirValue1, WaterValue1, 0, 100);
@@ -43,7 +43,7 @@ void loop() {
   soilmoisturepercent4 = map(soilMoistureValue4, AirValue4, WaterValue4, 0, 100);
 
 //  Serial.println("Soil Moisture % values\nA0:%d\tA1:%d\tA2:%d\tA3:%d\t",soilmoisturepercent0,soilmoisturepercent1,soilmoisturepercent2,soilmoisturepercent3);
-//  Serial.println(soilmoisturepercent1);
+  Serial.println(soilmoisturepercent1);
 //  Serial.println("###################");
 //  Serial.println(soilmoisturepercent1);
 //  Serial.println(soilmoisturepercent2);

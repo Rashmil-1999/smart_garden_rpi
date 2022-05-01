@@ -89,9 +89,9 @@ while(moisture_level != 'done'):
         print('sweep number ' + str(i+1))
         tags_found = {}
         for j in range(len(powers)):
-            if j%9 == 0:
+            # if j%9 == 0:
                 # print('', end='\r')
-                print('\r'+str(powers[j]) +' dBm', end=' ')
+            print('\r'+str(powers[j]) +' dBm', end=' ')
             tags = reader.detectTags(powerDBm=powers[j], freqMHz=freqs[0], mode=1002, session=2, population=5, duration=mrt_read_duration, searchmode=2, antennas=(1,))
             for tag in tags:
                 # pprint(tag)
@@ -103,6 +103,7 @@ while(moisture_level != 'done'):
                     else:
                         min_Tx_power[tag['EPC-96'].decode('utf-8')].append(powers[j])
             if len(tags) >= len(tag_ids):
+                print('\n')
                 break
 
     # loop to get 1000 readings of rssi fixed at max power level
