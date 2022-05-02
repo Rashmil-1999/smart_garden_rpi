@@ -15,7 +15,7 @@ import time
 # print statement though, and should be uncommented for general use. They are found in lines 139 and 273
 # of both of these files currently
 
-reader = R420('169.254.1.1')
+reader = R420('169.254.162.28')
 
 freqs = reader.freq_table
 powers = reader.power_table
@@ -102,6 +102,7 @@ while(moisture_level != 'done'):
                         min_Tx_power[tag['EPC-96'].decode('utf-8')].append(powers[j])
                     else:
                         min_Tx_power[tag['EPC-96'].decode('utf-8')].append(powers[j])
+                    print(tag + ' '  + str(powers[i]))
             if len(tags) >= len(tag_ids):
                 print('\n')
                 break
