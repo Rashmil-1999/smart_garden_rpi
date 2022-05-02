@@ -4,6 +4,7 @@ from pprint import pprint
 import json
 import os
 import time
+import statistics
 
 # import logging
 
@@ -19,9 +20,12 @@ reader = R420('169.254.162.28')
 
 freqs = reader.freq_table
 powers = reader.power_table
-mrt_read_duration = 0.2
+# mrt_read_duration = 0.2
+num_mrt_readings = int(input('how many sweeps do you want for MRT? '))
+mrt_read_duration = float(input('how fast should we read the mrt? (in seconds): '))
 rssi_read_duration = 0.1
-num_rssi_readings = 200
+# num_rssi_readings = 200
+num_rssi_readings = int(input('how many readings do you want for RSSI? '))
 
 #  Do a couple of ten reads to warmup the reader and confirm correct number of tags being read
 print('warming up the reader')
@@ -58,6 +62,18 @@ tag_ids = {
         'tag': 'tag_5',
         'EPC-96': 'e280689000000001a2f9fb4d',
         'location': 'air'
+    },
+    'EPC-CODE_right_arm_tag':
+    {
+        'tag': 'tag_6',
+        'EPC-96': '',
+        'location': 'bottom_right'
+    },
+    'EPC-CODE_left_arm_tag':
+    {
+        'tag': 'tag_7',
+        'EPC-96': '',
+        'location': 'bottom_left'
     }
 }
 
@@ -68,7 +84,7 @@ newpath = './data/automated_test/'+timestr
 if not os.path.exists(newpath):
     os.makedirs(newpath)
 
-locations = ['bottom_boxes', 'mid_boxes', 'top_boxes', 'top_shelf', 'mid_shelf', 'bottom_shelf']
+locations = ['0deg', '45deg', '90deg', '135deg', '180deg', '-135deg', '-90deg', '-45deg', 'front_left', 'front_right', 'back_left', 'back_right', 'top', 'middle', 'bottom']
 loc_index = 0
 location = locations[loc_index]
 print(location)
@@ -84,8 +100,8 @@ while(moisture_level != 'done'):
  
     # loop to sweep the power level up five times and record minimum response threshold transmission power for each 
     
-    print('starting mrt sweeps for moisture level: '+moisture_level+' and location: '+location)
-    for i in range(5):
+    print('starting' + str(num_mrt_readings) + 'mrt sweeps for moisture level: '+moisture_level+' and location: '+location)
+    for i in range(num_mrt_readings):
         print('sweep number ' + str(i+1))
         tags_found = {}
         for j in range(len(powers)):
@@ -102,7 +118,7 @@ while(moisture_level != 'done'):
                         min_Tx_power[tag['EPC-96'].decode('utf-8')].append(powers[j])
                     else:
                         min_Tx_power[tag['EPC-96'].decode('utf-8')].append(powers[j])
-                    print(tag + ' '  + str(powers[i]))
+                    print('\r' + tag['EPC-96'].decode('utf-8') + '   ' + str(powers[j]) + 'dBm')
             if len(tags) >= len(tag_ids):
                 print('\n')
                 break
@@ -140,13 +156,14 @@ while(moisture_level != 'done'):
             print('number of rssi readings: ' + str(len(rssi_vals[tag]['peak_rssi'])))
         if min_Tx_power.get(tag, None):
             print('number of mrt readings: ' + str(len(min_Tx_power[tag])))
-
+            print('range of mrt readings: ' + str(min(min_Tx_power[tag])) + ' - ' + str(max(min_Tx_power[tag])))
+            print('median mrt reading: ' + str(statistics.median(min_Tx_power[tag])))
 
     with open(path, 'w') as f:
         json.dump(data, f, indent=4)
-
 
     loc_index+=1
     location=locations[loc_index%6]
     print(location)
     moisture_level = input('what is the new moisture level? (done to finish): ')
+    mrt_read_duration = float(input('how fast should we read the mrt? (in seconds): '))
