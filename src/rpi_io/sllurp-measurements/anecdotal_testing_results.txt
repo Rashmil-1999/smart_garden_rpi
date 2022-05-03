@@ -1,0 +1,57 @@
+Ground Truth for MRT readings (1sec per reading. ~30 seconds per sweep (empirical for random "pretty moist" moisture level))
+
+1 second readings
+
+rim
+number of mrt readings: 20
+range of mrt readings: 10.0 - 10.0
+average of mrt readings: 10.0
+
+
+bottom_front
+number of mrt readings: 20
+range of mrt readings: 16.0 - 16.5
+average of mrt readings: 16.175
+
+
+bottom_back
+number of mrt readings: 20
+range of mrt readings: 17.0 - 17.5
+average of mrt readings: 17.0375
+
+
+air
+number of mrt readings: 20
+range of mrt readings: 10.0 - 10.0
+average of mrt readings: 10.0
+-----------------------------------------------------
+0.5 second readings
+
+rim
+number of mrt readings: 5
+range of mrt readings: 10.0 - 10.75
+average of mrt readings: 10.15
+
+
+bottom_front
+number of mrt readings: 5
+range of mrt readings: 15.75 - 17.75
+average of mrt readings: 16.55
+
+
+bottom_back
+number of mrt readings: 5
+range of mrt readings: 17.0 - 18.0
+average of mrt readings: 17.4
+
+
+air
+number of mrt readings: 5
+range of mrt readings: 10.0 - 10.0
+average of mrt readings: 10.0
+
+
+
+
+Times for 5 sweeps (experimental):
+ - 1sec:    2:38
