@@ -12,3 +12,4 @@ urllib3
 chardet
 Adafruit_DHT
 adafruit-circuitpython-veml7700
+sllurp
