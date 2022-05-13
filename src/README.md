@@ -50,3 +50,45 @@ To install the packages run `pip install -r requirements.txt`
   - Manual Mode Control
   - Plant Tracking
   - Irrigation Control
+
+## Execution
+
+The values in `constants` folder needs to be changed for auth, and paths to reflect the user's system.
+
+- The User token in `auth.py`
+- `BASE_DIR` in `paths.py`
+- `RFID_READER` and `RFID_PORT` variables need to be configured to reflect your reader's settings.
+- Once the remote hasura instance has been set up, change the uri pointing to your new endpoint in the variable `HASURA_WSS_ENDPOINT` and `HASURA_HTTP_ENDPOINT`.
+- Move all the service files to the folder `/usr/lib/systemd/`
+- Then, enable all these services by running `enable.sh`
+- Finally, you can now simply run all the services `start.sh`
+- To check the status of all the services run `status.sh`
+
+## Setup images
+
+![The setup includes a shelf, pots and the 2 water tanks used to water the plants](./assets/complete_setup.jpg "Complete setup")
+
+![The Pi setup ](./assets/pi_setup.jpg "Pi setup")
+
+![The tanks setup ](./assets/tank.jpg "Tanks setup")
+
+## System Overview
+
+![The System Overview.](./assets/overview.png)
+
+## Modules in the Smart Garden
+
+![The Improved modules in the system are as follows.](./assets/improved_modules.png)
+
+## User Web Communication
+
+![The User web communications.](./assets/user_web_comm.png)
+
+## Circuit diagrams
+
+![Soil Temperature sensor connection.](./assets/soil_temperature_sensor_circuit_diagram.png)
+![Solenoid Valve connection diagram.](./assets/solenoid_valve_circuit_diagram.png)
+
+## Main script flow
+
+![Flow chart of the main irrigation script.](./assets/main_script_flow.png)
